@@ -23,6 +23,9 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'filterAdmin' => \App\Filters\FilterAdmin::class,
+        'filterSiswa' => \App\Filters\FilterSiswa::class,
+        'filterStaff' => \App\Filters\FilterStaff::class
     ];
 
     /**
@@ -36,8 +39,20 @@ class Filters extends BaseConfig
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
+             'filterAdmin'=>[
+                'except'=>['login/*','login','/']
+            ],
+            'filterSiswa'=>[
+                'except'=>['login/*','login','/']
+            ],
+            'filterStaff'=>[
+                'except'=>['login/*','login','/']
+            ]
         ],
         'after' => [
+        'filterAdmin'=>['except'=>['home/*','biodata/*', 'kelas/*','semester/*', 'siswa/*', 'profile/*']],
+            'filterStaff'=>['except'=>['home/*','kelas/*','semester/*', 'siswa/*', 'profile/*']],
+            'filterSiswa'=>['except'=>['home/*','biodata/*', 'profile/*']],
             'toolbar',
             // 'honeypot',
             // 'secureheaders',
